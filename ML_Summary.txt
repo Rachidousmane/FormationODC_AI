@@ -1,0 +1,54 @@
+
+Le lien --> https://info.usherbrooke.ca/hlarochelle/ift603/
+
+-Apprentissage Automatique (Machine Learning)
+	Les 5Q (les cinq questions):
+	*Quoi:     Pour permettre à une machine d'apprendre à resoudre un problème de façon autonome en s'appuyant sur un ensemble de données d'entrainement.
+	*Pourquoi: Expliciter clairement toutes les methodes de resolution (qui nous sont eventuellement inconnues) d'un problème semble être impossible. Donc c'est pour resoudre les problèmes aux-quels l'être humain n'a pas la solution explicite.
+	*Comment?: En utilisant différents types d'algo. d'apprentissage (supervisé, non-supervisé, par renforcement) qui va générer un problème (modèle) capable de fournir une solution optimale au vu des données d'entrainement.
+	*Où?	 : Dans tous les domaines avec n'importe quel type de données
+	*Quand?  : lorsqu'on dispose les ressources necéssaires (données, pce de calcul_du_processeur, ...)
+-Algorithme d'Apprentissage en général:
+	# Modèle : y = ax + b ou y = wa (où w est le vecteur poid(un ensble de scalaire))
+	# Hyper-paramètres : Selection de modèle
+	# Paramètres à apprendre de manière optimale : a, b
+	# Critère d'optimisation : Erreurs, soit la différence entre les données réelles et les prédiction du modèle (cas de la regression) ou les probabilités de vraiSemblance (cas de la classification)
+					C'est quoi l'Erreur? --> E(w)= 1/2 Sum(ti - yi)au_carré + téta où ti sont les valeurs réelles précisement les target et yi l'équation de notre modèle, donc les valeurs prédites et téta est la variable de regularisation
+					  la regurarisation a pour but d'éviter le sur et le sous-apprentissage, tout en tenant compte du fait que même nos données d'entrée peuvent être érronées surtout pendant leur recueil.
+						Eg. Donc s'il y a une erreur dans nos données fournit, on ne le saura pas, car on les a reccueillit avec des erreurs, mais la regularisation téta permettra à la methode d'optimisation de s'approcher ou de correspondre à la prediction exacte;
+						    Sinon la methode d'optimisation considera téta comme 0
+	# Methode d'optimisation :  Chercher les paramètres optimaux en considérant les critères d'optimisation (ces methodes sont: maximum de vraisemblance, la methode des moindre  carré, parfois on ajoute "Log" aussi)
+				-la methode de moindre carré a pour but de minimiser le "w" de lerreur, fournit donc le "w" optimal qui minimise l'erreur, donc l'erreur elle-même
+				-le maximum de vraisemblance: Il permet de maximiser la probalité d'acceptance des valeurs à predire, il utilise
+						La loi de probabilité: Il y en a plrs, exple: la loi normale (ayant la moyenne et la variance, on pourrait definir la place d'acceptation des valeurs à predire), la loi de Bernouilli...
+	# Methode d'inférence : Fournir la solution à un cas spécifique en se basant sur le modèle.
+-Régression Linéaire/Non
+	*Modèle : cas général --->  Cas linéaire
+				    y(X,w) = Som/j_allant_de_1_à_N(Wj, xj) 
+				    (Droite(N=1), Plan(N=2), Hyperplan(N>2))
+
+			      --->  Cas non-linéaire
+				    Fonction de bases: Y(X, w) = Som/j_allant_de_0_à_N(wj * Fij(x))
+	*Paramètre: w
+	*Hyperparamètres : Selon le modèle
+	*Critère d'optimisation:
+-La Classification:
+	Les types:
+	+ Classification Binaire:    Pour une donnée en entrée, Il y a deux types de classes aux-quelles elle peut être affectée. Mais à la fin, elle est affectée à une seule classe parmis les 2.
+					Exple: 1 pers à reussit ou a échoué
+	+ Classification Multiclass: Pour une donnée en entrée, Il y a plrs classes aux-quelles elle peut être affectée. Mais à la fin, elle est affectée à une seule classe parmis les n types.
+					Exple: 1 pers est soit au Mali, soit au Japon, soit en Chine, soit au USA.
+	+ Classification MultiLabel: Pour une donnée en entrée, Il y a plrs classes aux-quelles elle peut être affectée. Mais à la fin, elle peut être affectée à plus d'une seule classe parmis les n types.
+					Exple: 1 pers peut avoir plrs nationnalité, 1 pers peut avoir plrs profil professionnel
+	
+	# La fonction discriminante: une fonction linéaire qui va permettre de construire l'hyperplan
+		y = wx + b, cette relation soulève un problème d'optimisation de la classification(autrement dit un problème d'optimisation appelé NP-Difficil). C'est un problème au-quel généralement, on ne s'attaque directement, donc on essaie de trouver une demarche de resolution indirect.
+			Resolution des problèmes de classification par approche indirect:
+		 	  1-Considerer le problème comme étant une regression: Exple: Dans le cas binaire(0, 1), considerant le problème comme de la regression, on pourrait considerer toute valeur compris entre [0, 0.5] comme étant de la classe 0 et celles entre ]0.5, 1] comme étant de la classe 1
+										      Dans le cas MuliClasse, pareil que pour le cas binaire
+										      Dans le cas MuliLabel, on fait une de la regression multiple, c-à-d, on fait de la regression pour chaque colonne de la target (classes) fournit par l'encodage
+			  2-Analyse discriminante linéaire: On va essayer d'éloigner le maximum possible les différentes classes, donc ce qui revient à maximiser la marge d'où minimiser l'erreur de classification
+			  3-Approche Probabiliste: 
+				3_1- Approche Générative(Probabilité jointe) Exple: La probabilité que 2 pièces d'argent, après jet, tombe toutes sur pile
+				3_2- Approche Discriminant(Probabilité conditionnelle: "proba. sachant une autre situation") Exple: Quelle est la probabilité qu'un dé, après jet, tombe sur "4" sachant que la face en question est paire --> solution: d'abord, la proba. pourque la face soit paire est 1/2 car il ya 3 chiffres paires dans l'univers {1, 2, 3, 4, 5, 6} (Dim =6); La reponse est 1/3
+
